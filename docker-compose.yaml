@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  flutter-web:
+    build: .
+    container_name: flutter_web_app
+    ports:
+      - "8083:80"
+    restart: always
