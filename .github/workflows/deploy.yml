@@ -24,12 +24,12 @@ jobs:
 
             echo "Connexion au VPS réussie"
 
-            cd ESSIKIA-DEPLOIEMEN/'ESPACE WEB'/ESSIKIA-ESPACE-WEB
+            cd "ESSIKIA-DEPLOIEMEN/ESPACE WEB/ESSIKIA-ESPACE-WEB"
 
             echo "Récupération du dernier code"
             git stash
             git fetch origin
-            cd git reset --hard origin/main
+            git reset --hard origin/main
 
             echo "Reconstruction du container"
             docker compose up --build -d
