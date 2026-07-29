@@ -28,7 +28,8 @@ jobs:
 
             echo "Récupération du dernier code"
             git stash
-            git pull origin main
+            git fetch origin
+            cd git reset --hard origin/main
 
             echo "Reconstruction du container"
             docker compose up --build -d
