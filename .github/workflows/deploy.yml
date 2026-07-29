@@ -1,0 +1,38 @@
+
+name: Deploy Flutter Web
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy application
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+
+          script: |
+            set -e
+
+            echo "Connexion au VPS réussie"
+
+            cd ESSIKIA-DEPLOIEMEN/'ESPACE WEB'/ESSIKIA-ESPACE-WEB
+
+            echo "Récupération du dernier code"
+            git stash
+            git pull origin main
+
+            echo "Reconstruction du container"
+            docker compose up --build -d
+            nginx -t
+            echo "Déploiement terminé avec succès"
+            
+
